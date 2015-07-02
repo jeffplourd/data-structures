@@ -25,6 +25,8 @@ describe('graph', function() {
     expect(graph.contains('puppies')).to.equal(true);
     graph.removeNode('puppies');
     expect(graph.contains('puppies')).to.equal(false);
+    graph.removeNode('pineapple');
+
   });
 
   it('should create edges between two nodes', function() {
@@ -40,7 +42,8 @@ describe('graph', function() {
     graph.addNode('apples');
     graph.addNode('satsumas');
     graph.addEdge('satsumas', 'apples');
-    expect(graph.hasEdge('apples', 'satsumas')).to.equal(true);
+    graph.removeEdge('satsumas', 'apples');
+    expect(graph.hasEdge('apples', 'satsumas')).to.equal(false);
   });
 
   it('should execute a callback on each node in the graph', function() {
