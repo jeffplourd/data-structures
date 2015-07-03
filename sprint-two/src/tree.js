@@ -20,14 +20,13 @@ treeMethods.addChild = function(value){
 };
 
 treeMethods.contains = function(target){
-
-	if(this.value===target){
+	if(this.value===target){ // base case
 		return true;
-	}else {
-		return _.some(this.children, function(item){
+	}else { //check children recursively
+		return _.some(this.children, function(item){ //note: handles case with no children, no problem
 			return item.contains(target); 
 		});
-	}
+	} //if
 };
 
 
