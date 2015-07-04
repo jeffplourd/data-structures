@@ -25,6 +25,7 @@ describe('hashTable', function() {
 
   it('should not contain values that were removed', function() {
     hashTable.insert('Steven', 'Tyler');
+    expect(hashTable.retrieve('Steven')).to.equal('Tyler');
     hashTable.remove('Steven');
     expect(hashTable.retrieve('Steven')).to.equal(null);
   });
@@ -41,16 +42,29 @@ describe('hashTable', function() {
     window.getIndexBelowMaxForKey = oldHashFunction;
   });
 
+  it('should override existing value when passing in new value for an existing key', function(){
+    var v1 = "val1";
+    var v2 = "val2";
+    hashTable.insert('key', v1);
+    expect(hashTable.retrieve('key')).to.equal(v1);
+    hashTable.insert('key', v2);
+    expect(hashTable.retrieve('key')).to.equal(v2);
+    hashTable.remove('key');
+    expect(hashTable.retrieve('key')).to.equal(null);
+  });
+
   // (Extra credit! Remove the extra "x" when you want the following tests to run)
-  xit('should double in size when needed', function() {
+  it('should double in size when needed', function() {
     _.each(people, function(person) {
       var firstName = person[0], lastName = person[1];
       hashTable.insert(firstName,lastName);
     });
+    // debugger
     expect(hashTable._limit).to.equal(16);
+    expect(hashTable.retrieve('George')).to.equal("Harrison");
   });
 
-  xit('should halve in size when needed', function() {
+  it('should halve in size when needed', function() {
     _.each(people, function(person) {
       var firstName = person[0], lastName = person[1];
       hashTable.insert(firstName,lastName);
@@ -63,4 +77,6 @@ describe('hashTable', function() {
     hashTable.remove('Mr.');
     expect(hashTable._limit).to.equal(8);
   });
+
+
 });
